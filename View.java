@@ -1,102 +1,63 @@
 package scoreboardapplication;
-
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.GridLayout;
 
 public class View {
 
 	private JTextField homeName;
-
 	private JTextField awayName;
-
 	private JTextField time;
-
 	private JTextField quarter;
-
 	private JTextField arrow;
-
 	private JCheckBox homeBonus;
-
 	private JCheckBox awayBonus;
-
 	private JTextField logo;
-
 	private JTextField homeScore;
-
 	private JTextField awayScore;
-
 	private JFrame scoreboardFrame;
-
 	private JFrame interfaceFrame;
-
 	private JPanel home;
-
 	private JPanel away;
-
 	private JPanel middle;
-
 	private JTextField input;
-
 	private JTextField output;
-
 	private JLabel homeLabel;
-
 	private JLabel awayLabel;
-
 	private JButton incrementButtonHome;
-
 	private JButton incrementButtonAway;
-
 	private JButton decrementButtonHome;
-
 	private JButton decrementButtonAway;
-
 	private JButton powerButton;
-
 	private JPanel leftRemote;
-
 	private JPanel middleRemote;
-
 	private JPanel rightRemote;
-
 	private JButton one;
-
 	private JButton two;
-
 	private JButton three;
-
 	private JButton four;
-
 	private JButton five;
-
 	private JButton six;
-
 	private JButton seven;
-
 	private JButton eight;
-
 	private JButton nine;
-
 	private JButton zero;
-
 	private JButton menu;
-
 	private JButton startButton;
-
 	private JButton stopButton;
-
-	private Model subject;
-	
+	private Model subject;	
 	private JPanel nestedPanel;
+	private JPanel nestedPanelRemote;
+	private JButton possessionButton;
 
 	public View(Model model) {
 		//instantiate all Jcomponents
 		System.out.println("Scoreboard initiated...");
+		possessionButton = new JButton("POSS </>");
 		homeName = new JTextField("HOME",15);
 		homeName.setEditable(false);
 		awayName = new JTextField("AWAY",15);
@@ -104,7 +65,7 @@ public class View {
 		time = new JTextField("8:00",4);
 		quarter = new JTextField("1");
 		quarter.setEditable(false);
-		arrow = new JTextField("<",1);
+		arrow = new JTextField("POSESSION - <",13);
 		arrow.setEditable(false);
 		homeBonus = new JCheckBox("Bonus");
 		homeBonus.setEnabled(false);
@@ -120,8 +81,8 @@ public class View {
 		middle = new JPanel();
 		input = new JTextField();
 		output = new JTextField();
-		homeLabel = new JLabel();
-		awayLabel = new JLabel();
+		homeLabel = new JLabel("HOME");
+		awayLabel = new JLabel("AWAY");
 		incrementButtonHome = new JButton("+");
 		incrementButtonAway = new JButton("+");
 		decrementButtonHome = new JButton("-");
@@ -145,6 +106,7 @@ public class View {
 		stopButton = new JButton("STOP");
 		subject = model;
 		nestedPanel = new JPanel();
+		nestedPanelRemote = new JPanel();
 		//add JComponents to JPanels
 		home.add(homeName);
 		home.add(homeScore);
@@ -162,17 +124,62 @@ public class View {
 		middle.add(nestedPanel);
 		middle.add(arrow);
 		middle.setLayout(new GridLayout(4,0));
+		leftRemote.add(homeLabel);
+		leftRemote.add(incrementButtonHome);
+		leftRemote.add(decrementButtonHome);
+		leftRemote.add(menu);
+		leftRemote.add(powerButton);
+		leftRemote.setLayout(new GridLayout(5,0));
+		rightRemote.setLayout(new GridLayout(5,0));
+		middleRemote.add(input);
+		middleRemote.add(output);
+		nestedPanelRemote.add(one);
+		nestedPanelRemote.add(two);
+		nestedPanelRemote.add(three);
+		nestedPanelRemote.add(four);
+		nestedPanelRemote.add(five);
+		nestedPanelRemote.add(six);
+		nestedPanelRemote.add(seven);
+		nestedPanelRemote.add(eight);
+		nestedPanelRemote.add(nine);
+		nestedPanelRemote.add(zero);
+		nestedPanelRemote.add(possessionButton);
+		nestedPanelRemote.setLayout(new GridLayout(4,3));
+		rightRemote.add(awayLabel);
+		rightRemote.add(incrementButtonAway);
+		rightRemote.add(decrementButtonAway);
+		rightRemote.add(startButton);
+		rightRemote.add(stopButton);
+		middleRemote.add(nestedPanelRemote);
+		middleRemote.setLayout(new GridLayout(3,0));
 		//add JPanels to JFrames
+		interfaceFrame.add(leftRemote);
+		interfaceFrame.add(middleRemote);
+		interfaceFrame.add(rightRemote);
+		interfaceFrame.setLayout(new GridLayout(0,3));
 		scoreboardFrame.add(home);
 		scoreboardFrame.add(middle);
 		scoreboardFrame.add(away);
 		scoreboardFrame.setLayout(new GridLayout(0,3));
-		scoreboardFrame.setSize(725,250);
+		interfaceFrame.setSize(1000,250);
+		interfaceFrame.setVisible(true);
+		scoreboardFrame.setSize(725,175);
 		scoreboardFrame.setVisible(true);
 		System.out.println("Scoreboard created...");
 	}
 
+	//called whenever GUI needs to update
 	public void update() {
+		homeName.setText(subject.getHomeName());
+		awayName.setText(subject.getAwayName());
+		time.setText(subject.getTime());
+		quarter.setText(subject.getQuarter());
+		arrow.setText(subject.getPossessionArrow());
+		homeBonus.setSelected(subject.getHomeBonus());
+		awayBonus.setSelected(subject.getAwayBonus());
+		logo.setText(subject.getLogo());
+		homeScore.setText(subject.getHomeScore());
+		awayScore.setText(subject.getAwayScore());
   }
 
 }
