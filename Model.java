@@ -13,7 +13,8 @@ public class Model {
 	private boolean awayBonus;
 	private String possessionArrow;
 	private boolean power = false;
-	
+
+	//constructor for Model
 	public Model() {
 		System.out.println("Model created...");
 		togglePower();
@@ -35,6 +36,51 @@ public class Model {
 			awayBonus = false;
 			possessionArrow = "POSS - <";
 		}
+	}
+
+	//Sets home team name for this Scoreboard
+	public synchronized void setHomeName(String homeName) {
+		this.homeName = homeName;
+	}
+
+	//Sets away team name for this Scoreboard
+	public synchronized void setAwayName(String awayName) {
+		this.awayName = awayName;
+	}
+
+	//Sets home team score for this Scoreboard
+	public synchronized void setHomeScore(String homeScore) {
+		this.homeScore = homeScore;
+	}
+
+	//Sets away team score for this Scoreboard
+	public synchronized void setAwayScore(String awayScore) {
+		this.awayScore = awayScore;
+	}
+
+	//Sets the quarter for this Scoreboard
+	public synchronized void setQuarter(String quarter) {
+		this.quarter = quarter;
+	}
+
+	//Sets the time for this Scoreboard
+	public synchronized void setTime(String time) {
+		this.time = time;
+	}
+
+	//Sets the home bonus for this Scoreboard
+	public synchronized void setHomeBonus(boolean homeBonus) {
+		this.homeBonus = homeBonus;
+	}
+
+	//Sets the away bonus for this Scoreboard
+	public synchronized void setAwayBonus(boolean awayBonus) {
+		this.awayBonus = awayBonus;
+	}
+
+	//sets Power for this Scoreboard
+	public synchronized void setPower(boolean power) {
+		this.power = power;
 	}
 
 	//sets new team name on scoreboard
@@ -70,7 +116,7 @@ public class Model {
 		//record String value of new value
 		awayScore = Integer.toString(++as);	
 	}
-	
+
 	//decrements the away team score by one
 	public synchronized void decrementAwayScore() {
 		//get int value of awayScore
@@ -97,10 +143,17 @@ public class Model {
 
 	//controls the possesion arrow indicator on scoreboard 
 	public synchronized void togglePossesionArrow() {
-		if(possessionArrow.equals("<"))
+		System.out.println(possessionArrow);
+		if(possessionArrow.equals("POSS - <"))
 			possessionArrow = "POSS - >";
 		else 
-			possessionArrow = "POSS - >";			
+			possessionArrow = "POSS - <";	
+		System.out.println(possessionArrow);
+	}
+
+	//sets String value for this Scoreboard's possession arrow
+	public void setPossessionArrow(String possessionArrow) {
+		this.possessionArrow = possessionArrow;
 	}
 
 	public synchronized void startTime() {
@@ -180,5 +233,4 @@ public class Model {
 		return quarter;
 	}
 
-	}	
-//}
+}

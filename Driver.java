@@ -19,7 +19,7 @@ public class Driver {
 			}
 		});
 
-		//
+		//refreshes the GUI/View display every second
 		while(true) {
 			c.update();
 			try {
